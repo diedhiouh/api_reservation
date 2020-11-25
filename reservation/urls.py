@@ -1,7 +1,7 @@
-"""reservation URL Configuration
+"""schoolmanger URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/2.2/topics/http/urls/
+    https://docs.djangoproject.com/en/3.0/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -14,8 +14,41 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.http import response, request
+from .router import router
+from .viewset import userSerializers
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth.models import User
+from rest_framework_simplejwt import views as jwt_views 
+from booking.views import UserAdd
+
+def home(request):
+    UserAdd.addUser()
+    teste = User.objects.get(username="diedhiou")
+    print(teste)
+    if teste :
+        print('Utilsateur exist deja ')
+    else:
+        superuser = User.objects.create_superuser(
+            username='diedhiou',
+            email='habibodh@gmail.com',
+            password='diedhiou123')
+        superuser.save()
+    return response.HttpResponse('hello')
 
 urlpatterns = [
+    path('', home),
     path('admin/', admin.site.urls),
+    path('booking/', include(router.urls)),
+
+    path('booking/', include('booking.urls')),
+
+    path('api/token/', jwt_views.TokenObtainPairView.as_view(),
+         name ='token_obtain_pair'), 
+    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), 
+         name ='token_refresh'), 
+    
 ]
