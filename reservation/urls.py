@@ -27,16 +27,16 @@ from booking.views import UserAdd
 
 def home(request):
     UserAdd.addUser()
-    teste = User.objects.get(username="diedhiou")
-    print(teste)
-    if teste :
-        print('Utilsateur exist deja ')
-    else:
+    teste = User.objects.all()
+    print('NOMBRE',teste.count())
+    if teste.count()==0 :
+        print('Aucun utilisateur en cours ')
         superuser = User.objects.create_superuser(
             username='diedhiou',
             email='habibodh@gmail.com',
             password='diedhiou123')
         superuser.save()
+    
     return response.HttpResponse('hello')
 
 urlpatterns = [
