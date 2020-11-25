@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from datetime import timedelta
+from pymongo.mongo_client import MongoClient
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -89,12 +90,24 @@ WSGI_APPLICATION = 'reservation.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'djongo',
+        'CLIENT': {
+            'name': 'reservation',
+        },
+        'ENFORCE_SCHEMA': False
     }
 }
+MongoClient.HOST = 'mongodb+srv://habib:habib123@cluster0.3t7pv.mongodb.net/'
+
 
 
 # Password validation
