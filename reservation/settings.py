@@ -28,7 +28,10 @@ SECRET_KEY = '(blw)3sg4)j2)@**g01mp%+1bm93-)um1$ppbu5dsa*kx$rs##'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','fierce-fortress-92745.herokuapp.com']
+ALLOWED_HOSTS = ['*']
+CORS_ORIGIN_ALLOW_ALL = True
+
+# ALLOWED_HOSTS = ['127.0.0.1','fierce-fortress-92745.herokuapp.com']
 # https://fierce-fortress-92745.herokuapp.com/
 
 CORS_ORIGIN_WHITELIST = (
