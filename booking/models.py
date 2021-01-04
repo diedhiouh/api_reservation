@@ -8,7 +8,7 @@ import datetime
 class Piece(models.Model):
     idpiece =  models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
     # id =  models.ObjectIdField()
-    matricule = models.CharField(max_length = 100)
+    matricule = models.CharField(max_length = 100, unique=True)
     etage = models.IntegerField()
     typep = models.CharField(max_length = 100)
     num_tel = models.CharField(max_length = 100)

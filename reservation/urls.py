@@ -22,8 +22,9 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
-from rest_framework_simplejwt import views as jwt_views 
+from rest_framework_simplejwt import views as jwt_views
 from booking.views import UserAdd
+from .viewset import RegisterView
 
 def home(request):
     UserAdd.addUser()
@@ -39,8 +40,16 @@ def home(request):
     
     return response.HttpResponse('hello')
 
+def sample_view(request):
+    
+    # current_user = request.user
+    # print("COURANT=> "+current_user.id)
+    return response.HttpResponse("current_user")
+
+
 urlpatterns = [
     path('', home),
+    path('courant/', sample_view),
     path('admin/', admin.site.urls),
     path('booking/', include(router.urls)),
 
@@ -50,5 +59,7 @@ urlpatterns = [
          name ='token_obtain_pair'), 
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), 
          name ='token_refresh'), 
+    path('booking/register/', RegisterView.as_view(), name='auth_register'),
+
     
 ]
