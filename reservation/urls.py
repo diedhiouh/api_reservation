@@ -30,6 +30,7 @@ def home(request):
     UserAdd.addUser()
     teste = User.objects.all()
     print('NOMBRE',teste.count())
+    counter = teste.count()
     if teste.count()==0 :
         print('Aucun utilisateur en cours ')
         superuser = User.objects.create_superuser(
@@ -38,7 +39,7 @@ def home(request):
             password='diedhiou123')
         superuser.save()
     
-    return response.HttpResponse('hello')
+    return response.HttpResponse(counter)
 
 def sample_view(request):
     
@@ -54,7 +55,6 @@ urlpatterns = [
     path('booking/', include(router.urls)),
 
     path('booking/', include('booking.urls')),
-
     path('api/token/', jwt_views.TokenObtainPairView.as_view(),
          name ='token_obtain_pair'), 
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), 

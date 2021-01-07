@@ -18,6 +18,8 @@ urlpatterns = [
     path('reserve/', ReserveViewList.as_view()),
     path('reserve/<int:pk>', ReserveViewEdit.as_view()),
     path('utilisateur/', UserViewList.as_view()),
-    path('utilisateur/<int:pk>', UserViewEdit.as_view())
+    path('utilisateur/<int:pk>', UserViewEdit.as_view()),
+    path('group/' , GroupViewList.as_view()),
+    path('group/<int:pk>' , GroupViewSet.as_view()),
 ]
 

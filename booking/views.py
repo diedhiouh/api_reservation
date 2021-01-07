@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import render
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, viewsets
 from .models import *
 from .serializers import *
 from rest_framework.permissions import IsAuthenticated
@@ -63,6 +63,22 @@ class UserViewEdit(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializers
     permission_classes = [IsAuthenticated]
+
+class GroupViewList(generics.ListCreateAPIView):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializers
+    permission_classes = [permissions.IsAuthenticated]
+
+class GroupViewSet(generics.RetrieveUpdateDestroyAPIView):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializers
+    permission_classes = [permissions.IsAuthenticated]
 
 class UserAdd():
     
